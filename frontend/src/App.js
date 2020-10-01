@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
-import './App.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import HomeScreen from './screens/HomeScreen/HomeScreen';
@@ -11,7 +10,7 @@ const App = () => {
 
       <Header />
 
-      <main className="py-4">
+      <main className="py-3">
         <Container>
           <HomeScreen />
         </Container>

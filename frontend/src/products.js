@@ -29,10 +29,10 @@ const products = [
 
   {
     _id: '3',
-    name: 'Canon EOS 6D DSLR Camera',
-    image: '/images/camera2.jpg',
+    name: 'Canon EOS 80D DSLR Camera',
+    image: '/images/camera.jpg',
     description:
-      'The EOS 6D DSLR camera is the ideal tool for unlocking your creative vision. It features a 20.2 Megapixel Full-Frame CMOS sensor, a wide ISO range of 100-25600, expandable to L: 50, H1: 51200, and H2: 102400, for incredible image quality even in low light, and a DIGIC 5+ Image Processor delivers enhanced noise reduction and exceptional processing speed. A new 11-point AF including a high-precision center cross-type AF point with EV -3 sensitivity allows focusing in extreme low-light conditions, and with continuous shooting up to 4.5 fps, you are ready to capture fast action. Full HD video with manual exposure control, multiple frame rates, and the benefits of a Full-Frame sensor provides stunning performance and creative flexibility. The built-in Wi-Fi® transmitter allows you to wirelessly transfer your images to social networking sites through CANON iMAGE GATEWAY#, or upload virtually anywhere from your iOS or Android smartphone* with the free download of the Camera Connect app**. You can use your smartphone for remote camera control and operation (with the Camera Connect app), or even print your images on a Wi-Fi® compatible printer^. Perfect for travel and nature photography, the built-in GPS## allows location data to be recorded while shooting. Compact, lightweight, brilliant low-light performance, and loaded with easy to use features, the EOS 6D is truly the Full-Frame DSLR camera for everyone.',
+      "Whether raising your game to SLR level photography or having fun with a feature-rich, versatile SLR you can use pretty much anywhere, the EOS 80D camera is your answer. It features an impressive 45-point all cross-type AF system* that provides high-speed, highly precise AF in virtually any kind of light. To help ensure photographers don't miss their shot, an Intelligent Viewfinder with approximately 100% coverage provides a clear view and comprehensive image data. Improvements like a powerful 24.2 Megapixel (APS-C) CMOS sensor and Dual Pixel CMOS AF for Live View shooting enhance the EOS 80D's performance across the board. Complementing the EOS 80D's advanced operation are built-in wireless connectivity and Full HD 60p movies that can be saved as MP4s for easy sharing. Merging power, precision and operability, the EOS 80D is a dynamic SLR camera for anyone ready to realize their creative vision.",
     brand: 'Canon',
     category: 'Electronics',
     price: 929.99,
