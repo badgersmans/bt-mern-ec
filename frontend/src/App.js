@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import './App.css';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import HomeScreen from './screens/HomeScreen/HomeScreen';
 
 const App = () => { 
   return (
@@ -12,7 +13,7 @@ const App = () => {
 
       <main className="py-4">
         <Container>
-          <h1>Welcome to Geminids</h1>
+          <HomeScreen />
         </Container>
       </main>
 
