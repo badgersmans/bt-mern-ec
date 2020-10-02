@@ -1,6 +1,9 @@
 const express   = require('express');
+const dotenv    = require('dotenv');
 const colors    = require('colors');
 const products  = require('./data/products');
+
+dotenv.config();
 
 const app = express();
 
@@ -18,4 +21,4 @@ app.get('/api/products/:id', (req, res) => {
     res.json(product)
 });
 
-app.listen(PORT, () => { console.log(`Server started on port ${PORT}`.underline.bold.blue); });
+app.listen(PORT, () => { console.log(`${process.env.NODE_ENV} server started on port ${PORT}`.underline.bold.blue); });
