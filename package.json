@@ -4,7 +4,10 @@
   "description": "bt-mern-ec",
   "main": "app.js",
   "scripts": {
-    "start": "node backend/app"
+    "start": "node backend/app",
+    "server": "nodemon backend/app",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,9 @@
   "dependencies": {
     "colors": "^1.4.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
   }
 }
