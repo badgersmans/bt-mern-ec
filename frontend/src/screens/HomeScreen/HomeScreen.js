@@ -2,6 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../redux/Product/ProductActions';
 import { Col, Row } from 'react-bootstrap';
+import Loader from '../../components/Loader/Loader';
+import Message from '../../components/Message/Message';
 import Product from '../../components/Product/Product';
 
 const HomeScreen = () => {
@@ -20,8 +22,8 @@ const HomeScreen = () => {
 
             {
                 loading
-                ? <h2>loading...</h2>
-                : error ? <h3>{ error }</h3>
+                ? <Loader />
+                : error ? <Message variant='danger'>{ error }</Message>
 
                 :  <Row>
                         {
