@@ -11,7 +11,7 @@ import { GlassMagnifier } from "react-image-magnifiers";
 
 const ProductScreen = ({ match, history }) => {
 
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
     const dispatch = useDispatch();
 
@@ -23,16 +23,16 @@ const ProductScreen = ({ match, history }) => {
 
     const addToCartHandler = () => {
 
-        let quantityFix;
+        /* let quantityFix;
 
         if (quantity === 0) {
             quantityFix  = quantity;
             quantityFix += 1;
         } else {
             quantityFix = quantity;
-        }
+        } */
 
-        history.push(`/cart/${ match.params.id }?quantity=${ quantityFix }`)
+        history.push(`/cart/${ match.params.id }?quantity=${ quantity }`)
     };
 
 

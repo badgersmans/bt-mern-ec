@@ -16,10 +16,10 @@ export const cartReducer = (state = initialState, action) => {
     switch (type) {
         case CART_ADD_ITEM:
             const item = payload;
-            console.log(`cartReducer item is? ${item}`);
+            console.log(`cartReducer item is? ${JSON.stringify(item)}`);
 
             const itemExist = state.cartItems.find(x => x.product === item.product);
-            console.log(`cartReducer itemExist is? ${itemExist}`);
+            console.log(`cartReducer itemExist is? ${JSON.stringify(itemExist)}`);
 
 
             if(itemExist) {
