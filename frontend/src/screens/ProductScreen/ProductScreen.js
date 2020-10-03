@@ -34,7 +34,7 @@ const ProductScreen = ({ match }) => {
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <Rating value={ product.rating } text={ `${product.numReviews} reviews` } />
+                            <Rating value={ product.avgRating } text={ `${product.reviewCount} reviews` } />
                         </ListGroup.Item>
 
                         <ListGroup.Item>
@@ -81,7 +81,7 @@ const ProductScreen = ({ match }) => {
 
                                     <Col>
                                         {
-                                            product.countInStock > 0 ? 'In stock' : 'Out of stock'
+                                            product.stockQuantity > 0 ? 'In stock' : 'Out of stock'
                                         }
                                     </Col>
                                 </Row>
@@ -91,7 +91,7 @@ const ProductScreen = ({ match }) => {
                                 <Button 
                                     className='btn-block' 
                                     type='button' 
-                                    disabled={ product.countInStock === 0 }>
+                                    disabled={ product.stockQuantity === 0 }>
                                     Add to cart
                                 </Button>
                             </ListGroup.Item>

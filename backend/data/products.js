@@ -7,9 +7,9 @@ const products = [
     brand: 'Apple',
     category: 'Electronics',
     price: 89.99,
-    countInStock: 10,
-    rating: 4.5,
-    numReviews: 12,
+    stockQuantity: 10,
+    avgRating: 4.5,
+    reviewCount: 12,
   },
   
   {
@@ -20,9 +20,9 @@ const products = [
     brand: 'Apple',
     category: 'Electronics',
     price: 599.99,
-    countInStock: 7,
-    rating: 4.0,
-    numReviews: 8,
+    stockQuantity: 7,
+    avgRating: 4.0,
+    reviewCount: 8,
   },
 
   {
@@ -33,9 +33,9 @@ const products = [
     brand: 'Canon',
     category: 'Electronics',
     price: 929.99,
-    countInStock: 3,
-    rating: 3,
-    numReviews: 12,
+    stockQuantity: 3,
+    avgRating: 3,
+    reviewCount: 12,
   },
 
   {
@@ -46,9 +46,9 @@ const products = [
     brand: 'Sony',
     category: 'Electronics',
     price: 399.99,
-    countInStock: 11,
-    rating: 5,
-    numReviews: 12,
+    stockQuantity: 11,
+    avgRating: 5,
+    reviewCount: 12,
   },
 
   {
@@ -59,9 +59,9 @@ const products = [
     brand: 'Logitech',
     category: 'Electronics',
     price: 49.99,
-    countInStock: 7,
-    rating: 3.5,
-    numReviews: 10,
+    stockQuantity: 7,
+    avgRating: 3.5,
+    reviewCount: 10,
   },
 
   {
@@ -72,9 +72,9 @@ const products = [
     brand: 'Amazon',
     category: 'Electronics',
     price: 29.99,
-    countInStock: 0,
-    rating: 4,
-    numReviews: 12,
+    stockQuantity: 0,
+    avgRating: 4,
+    reviewCount: 12,
   },
 ];
 

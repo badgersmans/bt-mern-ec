@@ -24,6 +24,11 @@ const productSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
     image: {
         type: String,
         required: true

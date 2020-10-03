@@ -2,6 +2,7 @@ import express  from 'express';
 import dotenv   from 'dotenv';
 import colors   from 'colors';
 import connectDB from './config/db.js';
+import { notFound, errorHandler } from './middleware/errorHandler.js';
 
 import productRoutes from './routes/productRoutes.js';
 
@@ -18,8 +19,10 @@ app.use(express.json({ extended: false }));
 
 
 // define routes
- app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes);
 
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 4000;
 
