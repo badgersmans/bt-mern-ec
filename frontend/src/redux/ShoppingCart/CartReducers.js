@@ -37,20 +37,15 @@ export const cartReducer = (state = initialState, action) => {
                     ]
                 }
             }
+
         case CART_REMOVE_ITEM:
             return {
-                loading: false,
-                products: payload
+                ...state,
+                cartItems: state.cartItems.filter(x => x.product !== payload)
             }
         default:
             return state;
     }
 };
-
-
-
-
-
-
 
 
