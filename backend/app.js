@@ -21,7 +21,7 @@ app.use(express.json({ extended: false }));
 
 // define routes
 app.use('/api/products', productRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/api/users', userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
