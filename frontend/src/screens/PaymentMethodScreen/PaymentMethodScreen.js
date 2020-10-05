@@ -9,8 +9,9 @@ const PaymentMethodScreen = ({ history }) => {
 
     const dispatch = useDispatch();
     const { shippingAddress } = useSelector(state => state.cart);
+    console.log(shippingAddress);
 
-    if(shippingAddress) {
+    if(!shippingAddress) {
         history.push('/shipping');
     }
 

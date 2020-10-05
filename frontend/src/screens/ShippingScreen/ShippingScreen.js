@@ -12,11 +12,11 @@ const ShippingScreen = ({ history }) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (!userInfo) {
             history.push('/login');
         }
-    }, [history, userInfo]);
+    }, [history, userInfo]); */
 
     const [ address , setAddress   ] = useState(shippingAddress.address);
     const [ city    , setCity      ] = useState(shippingAddress.city);
