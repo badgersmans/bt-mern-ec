@@ -70,12 +70,6 @@ const productSchema = mongoose.Schema({
         required: true,
         default: 0,
         trim: true
-    },
-    price: {
-        type: Number,
-        required: true,
-        default: 0,
-        trim: true
     }
 }, { timestamps: true });
 
