@@ -95,7 +95,7 @@ const OrderScreen = ({ match }) => {
                                     {
                                         order.isDelivered 
                                         ? <Message variant='success'>
-                                            Delivered on <DayJS format='DD MMM YYYY'>{ order.deliveredAt }</DayJS>
+                                            Delivered on <DayJS format='DD MMM YYYY h:mm A'>{ order.deliveredAt }</DayJS>
                                           </Message>
                                         : <Message variant='danger'>Not Delivered</Message>
                                     }

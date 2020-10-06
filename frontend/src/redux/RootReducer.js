@@ -2,18 +2,19 @@ import { combineReducers } from 'redux';
 import { productListReducer, productDetailsReducer } from './Product/ProductReducers';
 import { cartReducer } from './ShoppingCart/CartReducers';
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer } from './User/UserReducers';
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from './Orders/OrderReducers';
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListCurrentUserReducer } from './Orders/OrderReducers';
 
 
 export default combineReducers({
-    productList       : productListReducer      ,
-    productDetails    : productDetailsReducer   ,
-    cart              : cartReducer             ,
-    userLogin         : userLoginReducer        ,
-    userRegister      : userRegisterReducer     ,
-    userDetails       : userDetailsReducer      ,
-    userUpdateProfile : userUpdateProfileReducer,
-    createOrder       : orderCreateReducer      ,
-    orderDetails      : orderDetailsReducer     ,
-    orderPay          : orderPayReducer         ,
+    productList         : productListReducer         ,
+    productDetails      : productDetailsReducer      ,
+    cart                : cartReducer                ,
+    userLogin           : userLoginReducer           ,
+    userRegister        : userRegisterReducer        ,
+    userDetails         : userDetailsReducer         ,
+    userUpdateProfile   : userUpdateProfileReducer   ,
+    createOrder         : orderCreateReducer         ,
+    orderDetails        : orderDetailsReducer        ,
+    orderPay            : orderPayReducer            ,
+    orderListCurrentUser: orderListCurrentUserReducer,
 });
