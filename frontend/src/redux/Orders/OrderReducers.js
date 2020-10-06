@@ -11,7 +11,8 @@ import {
     ORDER_PAY_RESET,
     ORDER_LIST_CURRENT_USER_REQUEST,
     ORDER_LIST_CURRENT_USER_SUCCESS,
-    ORDER_LIST_CURRENT_USER_FAIL
+    ORDER_LIST_CURRENT_USER_FAIL,
+    ORDER_LIST_CURRENT_USER_RESET
 } from './OrderConstants';
 
 const orderCreateState  = {};
@@ -123,6 +124,10 @@ export const orderListCurrentUserReducer = (state = orderListCurrentUserState, a
             return {
                 loading: false,
                 error: payload
+            }
+        case ORDER_LIST_CURRENT_USER_RESET:
+            return {
+                orders: []
             }
         default:
             return state;

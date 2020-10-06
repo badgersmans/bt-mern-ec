@@ -119,11 +119,11 @@ const ProfileScreen = ({ location, history }) => {
                     ? <Loader />
                     : ordersError ? <Message variant='danger'>{ ordersError }</Message>
                     : (
-                        <Table 
-                            striped 
-                            bordered 
-                            hover 
-                            responsive 
+                        <Table
+                            striped
+                            bordered
+                            hover
+                            responsive
                             className='table-sm'
                         >
                             <thead>
