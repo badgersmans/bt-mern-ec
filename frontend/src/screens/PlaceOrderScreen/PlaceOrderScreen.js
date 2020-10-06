@@ -52,7 +52,7 @@ const PlaceOrderScreen = ({ history }) => {
                 <Col md={ 8 }>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
-                            <h2>Shipping</h2>
+                            <h2 style={{ paddingLeft:'0px' }}>Shipping</h2>
 
                             <p>
                                 <strong>Address:</strong>
@@ -61,15 +61,15 @@ const PlaceOrderScreen = ({ history }) => {
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <h2>Payment method</h2>
+                            <h2 style={{ paddingLeft:'0px' }}>Payment method</h2>
 
-                            <strong>Method:</strong>
+                            <strong>Method:</strong>{ ' ' }
                             { paymentMethod }
 
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <h2>Order items</h2>
+                            <h2 style={{ paddingLeft:'0px' }}>Order items</h2>
                             
                             <strong>Method:</strong>
                             {
