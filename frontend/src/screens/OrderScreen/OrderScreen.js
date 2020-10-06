@@ -28,7 +28,7 @@ const OrderScreen = ({ match }) => {
 
     useEffect(() => {
         dispatch(getOrderDetails(orderID));
-    }, []);
+    }, [dispatch, orderID]);
 
     return (
         <Fragment>
@@ -52,7 +52,7 @@ const OrderScreen = ({ match }) => {
                                             { order.user.name }<a href={ `mailto:${ order.user.email }` }>{ order.user.email }</a>
                                         </p>
                                     <p>
-                                        <strong>Address:</strong>
+                                        <strong>Address:</strong>{ ' ' }
                                         { order.shippingAddress.address }, { order.shippingAddress.city }, { order.shippingAddress.postCode }, { order.shippingAddress.country }
                                     </p>
 
