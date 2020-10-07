@@ -4,8 +4,9 @@ import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
-import FormContainer from '../../components/FormContainer/FormContainer'; 
-import { getUserDetails } from '../../redux/User/UserActions';
+import FormContainer from '../../components/FormContainer/FormContainer';
+import { getUserDetails, updateUser } from '../../redux/User/UserActions';
+import { USER_UPDATE_RESET } from '../../redux/User/UserConstants';
 
 
 const EditUserScreen = ({ match, history }) => {
@@ -19,21 +20,36 @@ const EditUserScreen = ({ match, history }) => {
     const dispatch = useDispatch();
 
     const { loading, error, user } = useSelector(state => state.userDetails);
+    const { loading:updateLoading, error:updateError, success } = useSelector(state => state.updateUser);
 
     useEffect(() => {
-        if(!user.name || user._id !== userID) {
-            dispatch(getUserDetails(userID));
+
+        if (success) {
+            dispatch({
+                type: USER_UPDATE_RESET
+            })
+            history.push('/admin/userlist');
         } else {
-            setName(user.name);
-            setEmail(user.email);
-            setIsAdmin(user.isAdmin);
+            if(!user.name || user._id !== userID) {
+                dispatch(getUserDetails(userID));
+            } else {
+                setName(user.name);
+                setEmail(user.email);
+                setIsAdmin(user.isAdmin);
+            }
         }
-    }, [user, userID, dispatch]);
+
+    }, [user, userID, dispatch, success, history]);
 
     const submitHandler = e => {
         e.preventDefault();
 
-
+        dispatch(updateUser({
+            _id: userID,
+            name,
+            email,
+            isAdmin
+        }));
     }
 
     return (
@@ -44,6 +60,9 @@ const EditUserScreen = ({ match, history }) => {
 
         <FormContainer>
             <h1 style={{ paddingLeft:'0px' }}>Edit User</h1>
+            
+            { updateLoading && <Loader /> }
+            { updateError && <Message variant='danger'>{ updateError }</Message> }
 
             {
                 loading
