@@ -17,7 +17,8 @@ import {
     USER_UPDATE_PROFILE_FAIL,
     USER_LIST_REQUEST,
     USER_LIST_SUCCESS,
-    USER_LIST_FAIL
+    USER_LIST_FAIL,
+    USER_LIST_RESET
 } from './UserConstants';
 
 import {
@@ -198,5 +199,8 @@ export const logout = () => (dispatch) => {
     });
     dispatch({
         type: ORDER_LIST_CURRENT_USER_RESET
+    });
+    dispatch({
+        type: USER_LIST_RESET
     });
 };
