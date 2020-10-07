@@ -8,6 +8,8 @@ const reviewSchema = mongoose.Schema({
     },
     rating: {
         type: Number,
+        min: 0,
+        max: 5,
         required: true,
     },
     comment: {
@@ -63,12 +65,14 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
+        min: 0,
         trim: true
     },
     stockQuantity: {
         type: Number,
         required: true,
         default: 0,
+        min: 0,
         trim: true
     }
 }, { timestamps: true });
