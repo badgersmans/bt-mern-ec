@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer } from './Product/ProductReducers';
 import { cartReducer } from './ShoppingCart/CartReducers';
 import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer } from './User/UserReducers';
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListCurrentUserReducer } from './Orders/OrderReducers';
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListCurrentUserReducer, orderListAdminReducer } from './Orders/OrderReducers';
 
 
 export default combineReducers({
@@ -23,4 +23,5 @@ export default combineReducers({
     orderDetails        : orderDetailsReducer        ,
     orderPay            : orderPayReducer            ,
     orderListCurrentUser: orderListCurrentUserReducer,
+    orderListAdmin      : orderListAdminReducer      ,
 });
