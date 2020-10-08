@@ -3,6 +3,7 @@ import express from 'express';
 import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
+const router = express.Router();
 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
 });
 
 function checkFileType(file, cb) {
-    const fileTypes = /jpg|jpeg|png/
+    const fileTypes = /jpg|jpeg|png/;
     const extname   = fileTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype  = fileTypes.test(file.mimetype);
 
@@ -31,8 +32,6 @@ const upload = multer({
         checkFileType(file, cb)
     }
 });
-
-const router = express.Router();
 
 
 router.post('/', upload.single('image'), (req, res) => {
