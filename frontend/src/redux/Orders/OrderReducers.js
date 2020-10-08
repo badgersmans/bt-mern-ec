@@ -15,7 +15,11 @@ import {
     ORDER_LIST_CURRENT_USER_RESET,
     ORDER_LIST_ADMIN_REQUEST,
     ORDER_LIST_ADMIN_SUCCESS,
-    ORDER_LIST_ADMIN_FAIL
+    ORDER_LIST_ADMIN_FAIL,
+    ORDER_DELIVER_REQUEST,
+    ORDER_DELIVER_SUCCESS,
+    ORDER_DELIVER_FAIL,
+    ORDER_DELIVER_RESET
 } from './OrderConstants';
 
 const orderCreateState  = {};
@@ -32,6 +36,7 @@ const orderDetailsState = {
 const orderListAdminState = {
     orders: []
 };
+const orderDeliverState = {};
 
 export const orderCreateReducer = (state = orderCreateState, action) => {
 
@@ -105,6 +110,33 @@ export const orderPayReducer = (state = orderPayState, action) => {
                 error: payload
             }
         case ORDER_PAY_RESET:
+            return {}
+        default:
+            return state;
+    }
+};
+
+
+export const orderDeliverReducer = (state = orderDeliverState, action) => {
+
+    const { type, payload } = action;
+
+    switch (type) {
+        case ORDER_DELIVER_REQUEST:
+            return {
+                loading: true
+            }
+        case ORDER_DELIVER_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case ORDER_DELIVER_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+        case ORDER_DELIVER_RESET:
             return {}
         default:
             return state;

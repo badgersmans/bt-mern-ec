@@ -1,8 +1,33 @@
 import { combineReducers } from 'redux';
-import { productListReducer, productDetailsReducer, productDeleteReducer, productCreateReducer, productUpdateReducer } from './Product/ProductReducers';
+
+import {
+    productListReducer   ,
+    productDetailsReducer,
+    productDeleteReducer ,
+    productCreateReducer ,
+    productUpdateReducer
+} from './Product/ProductReducers';
+
 import { cartReducer } from './ShoppingCart/CartReducers';
-import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer } from './User/UserReducers';
-import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListCurrentUserReducer, orderListAdminReducer } from './Orders/OrderReducers';
+
+import {
+    userLoginReducer        ,
+    userRegisterReducer     ,
+    userDetailsReducer      ,
+    userUpdateProfileReducer,
+    userListReducer         ,
+    userDeleteReducer       ,
+    userUpdateReducer
+} from './User/UserReducers';
+
+import {
+    orderCreateReducer         ,
+    orderDetailsReducer        ,
+    orderPayReducer            ,
+    orderListCurrentUserReducer,
+    orderListAdminReducer      ,
+    orderDeliverReducer
+    } from './Orders/OrderReducers';
 
 
 export default combineReducers({
@@ -22,6 +47,7 @@ export default combineReducers({
     createOrder         : orderCreateReducer         ,
     orderDetails        : orderDetailsReducer        ,
     orderPay            : orderPayReducer            ,
+    orderDeliver        : orderDeliverReducer        ,
     orderListCurrentUser: orderListCurrentUserReducer,
     orderListAdmin      : orderListAdminReducer      ,
 });

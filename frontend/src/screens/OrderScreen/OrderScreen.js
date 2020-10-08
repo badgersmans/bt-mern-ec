@@ -1,16 +1,16 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DayJS from 'react-dayjs';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
-import { getOrderDetails, payOrder } from '../../redux/Orders/OrderActions';
-import { ORDER_PAY_RESET } from '../../redux/Orders/OrderConstants';
+import { getOrderDetails, payOrder, deliverOrder } from '../../redux/Orders/OrderActions';
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../../redux/Orders/OrderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
 
     const orderID = match.params.id;
 
@@ -24,6 +24,11 @@ const OrderScreen = ({ match }) => {
     const orderPay = useSelector(state => state.orderPay);
     const { loading:loadingPay, success:successPay } = orderPay;
 
+    const orderDeliver = useSelector(state => state.orderDeliver);
+    const { loading:loadingDeliver, success:successDeliver } = orderDeliver;
+
+    const { userInfo } = useSelector(state => state.userLogin);
+
 
     if(!loading) {
         const addDecimals = (num) => {
@@ -35,6 +40,11 @@ const OrderScreen = ({ match }) => {
     }
 
     useEffect(() => {
+
+        if(!userInfo) {
+            history.push('/login');
+        }
+
         const addPayPalScript = async () => {
             const { data: clientId } = await axios.get('/api/config/paypal');
 
@@ -48,8 +58,9 @@ const OrderScreen = ({ match }) => {
             document.body.appendChild(script);
         };
 
-        if (!order || successPay) {
+        if (!order || successPay || successDeliver || (order && order._id !== orderID)) {
             dispatch({ type: ORDER_PAY_RESET });
+            dispatch({ type: ORDER_DELIVER_RESET });
             dispatch(getOrderDetails(orderID));
         } else if(!order.isPaid) {
             if (!window.script) {
@@ -58,12 +69,16 @@ const OrderScreen = ({ match }) => {
         } else {
             setSdkReady(true);
         }
-    }, [dispatch, orderID, successPay, order]);
+    }, [dispatch, orderID, successPay, successDeliver, order]);
 
     const successPaymentHandler = (paymentResult) => {
-        console.log(paymentResult);
+        // console.log(paymentResult);
 
         dispatch(payOrder(orderID, paymentResult))
+    };
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order));
     };
 
     return (
@@ -85,12 +100,13 @@ const OrderScreen = ({ match }) => {
 
                                         <p>
                                             <strong>Email: </strong>
-                                            { order.user.name }<a href={ `mailto:${ order.user.email }` }>{ order.user.email }</a>
+                                            { order.user.name }{ ' ' }<a target='_blank' href={ `mailto:${ order.user.email }` }>{ order.user.email }</a>
                                         </p>
-                                    <p>
-                                        <strong>Address:</strong>{ ' ' }
-                                        { order.shippingAddress.address }, { order.shippingAddress.city }, { order.shippingAddress.postCode }, { order.shippingAddress.country }
-                                    </p>
+
+                                        <p>
+                                            <strong>Address:</strong>{ ' ' }
+                                            { order.shippingAddress.address }, { order.shippingAddress.city }, { order.shippingAddress.postCode }, { order.shippingAddress.country }
+                                        </p>
 
                                     {
                                         order.isDelivered 
@@ -210,6 +226,23 @@ const OrderScreen = ({ match }) => {
                                                     }
                                                 </ListGroup.Item>
 
+                                            )
+                                        }
+
+                                        {
+                                            loadingDeliver && <Loader />
+                                        }
+                                        {
+                                            userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                                <ListGroup.Item>
+                                                    <Button 
+                                                        type='button' 
+                                                        className='btn btn-block' 
+                                                        onClick={ deliverHandler }
+                                                    >
+                                                        Mark As Delivered
+                                                    </Button>
+                                                </ListGroup.Item>
                                             )
                                         }
 
