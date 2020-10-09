@@ -100,7 +100,7 @@ const OrderScreen = ({ match, history }) => {
 
                                         <p>
                                             <strong>Email: </strong>
-                                            { order.user.name }{ ' ' }<a target='_blank' href={ `mailto:${ order.user.email }` }>{ order.user.email }</a>
+                                            { order.user.name }{ ' ' }<a target="_blank" rel="noopener noreferrer" href={ `mailto:${ order.user.email }` }>{ order.user.email }</a>
                                         </p>
 
                                         <p>

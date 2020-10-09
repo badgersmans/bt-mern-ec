@@ -1,25 +1,45 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProductDetails } from '../../redux/Product/ProductActions';
+import { listProductDetails, createProductReview } from '../../redux/Product/ProductActions';
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import ShowMoreText from 'react-show-more-text';
 import Rating from '../../components/Rating/Rating';
 import Loader from '../../components/Loader/Loader';
 import Message from '../../components/Message/Message';
 import { GlassMagnifier } from "react-image-magnifiers";
+import DayJS from 'react-dayjs';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../../redux/Product/ProductConstants';
 
 const ProductScreen = ({ match, history }) => {
 
     const [quantity, setQuantity] = useState(1);
+    const [rating, setRating]     = useState(0);
+    const [comment, setComment]   = useState('');
 
     const dispatch = useDispatch();
 
     const { loading, error, product } = useSelector(state => state.productDetails);
+    const { userInfo } = useSelector(state => state.userLogin);
+    const { error:productReviewError, success:successProductReview } = useSelector(state => state.productCreateReview);
 
     useEffect(() => {
+        if(productReviewError) {
+            dispatch({
+                type: PRODUCT_CREATE_REVIEW_RESET
+            });
+        }
+        if(successProductReview) {
+            // alert('Review submitted');
+            setRating(0);
+            setComment('');
+            dispatch({
+                type: PRODUCT_CREATE_REVIEW_RESET
+            });
+        }
         dispatch(listProductDetails(match.params.id));
-    }, [dispatch, match]);
+        // eslint-disable-next-line
+    }, [dispatch, match, successProductReview]);
 
     const addToCartHandler = () => {
 
@@ -35,6 +55,15 @@ const ProductScreen = ({ match, history }) => {
         history.push(`/cart/${ match.params.id }?quantity=${ quantity }`)
     };
 
+    const submitHandler = e => {
+        e.preventDefault();
+
+        dispatch(createProductReview(match.params.id, {
+            rating,
+            comment
+        }));
+    };
+
 
     return (
         <Fragment>
@@ -45,6 +74,7 @@ const ProductScreen = ({ match, history }) => {
                 ? <Loader />
                 : error ? <Message variant='danger'>{ error }</Message>
                 : (
+                    <Fragment>
                     <Row>
                         <Col md={ 6 }>
                             <GlassMagnifier
@@ -156,6 +186,77 @@ const ProductScreen = ({ match, history }) => {
                             </Card>
                         </Col>
                     </Row>
+
+                    <Row>
+                        <Col md=  { 6 }>
+                            <h2>Reviews</h2>
+                            {
+                                product.reviews.length === 0 && <Message>No reviews</Message>
+                            }
+                            <ListGroup variant='flush'>
+                                {
+                                    product.reviews.map(review => (
+                                        <ListGroup.Item key={ review._id }>
+                                            <strong>{ review.name }</strong>
+                                            <Rating value={ review.rating }/>
+                                            <p>
+                                                {
+                                                    <DayJS format='DD MMM YYYY'>{ review.createdAt }</DayJS>
+                                                }
+                                            </p>
+                                            <p>{ review.comment }</p>
+                                        </ListGroup.Item>
+                                    ))
+                                }
+                                <ListGroup.Item>
+                                    <h2>Write a review</h2>
+                                    { productReviewError && <Message variant='danger'>{ productReviewError }</Message>}
+                                    {
+                                        userInfo ? (
+                                            <Form onSubmit={ submitHandler }>
+                                                <Form.Group controlId='rating'>
+                                                    <Form.Label>Rating</Form.Label>
+                                                    <Form.Control 
+                                                        as='select' 
+                                                        value={ rating } 
+                                                        onChange={e => setRating(e.target.value) }
+                                                        required
+                                                    >
+                                                        <option value="">Select rating</option>
+                                                        <option value="1">1 - Poor</option>
+                                                        <option value="2">2 - Fair</option>
+                                                        <option value="3">3 - Average</option>
+                                                        <option value="4">4 - Very good</option>
+                                                        <option value="5">5 - Excellent</option>
+                                                    </Form.Control>
+                                                </Form.Group>
+
+                                                <Form.Group controlId='comment'>
+                                                    <Form.Label>Comment</Form.Label>
+                                                    <Form.Control 
+                                                        as='textarea' 
+                                                        row='3' 
+                                                        value={ comment } 
+                                                        onChange={e => setComment(e.target.value)}
+                                                        required
+                                                    >
+                                                    </Form.Control>
+                                                </Form.Group>
+
+                                                <Button type='submit' variant='primary'>
+                                                    Submit review
+                                                </Button>
+                                            </Form>
+                                        ) : <Message>
+                                            <Link to='/login'>Login</Link>{ ' ' }
+                                                to comment
+                                            </Message>
+                                    }
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </Col>
+                    </Row>
+                    </Fragment>
                 )
             }
         </Fragment>
