@@ -16,7 +16,7 @@ const HomeScreen = ({ match }) => {
 
     useEffect(() => {
         dispatch(listProducts(searchText));
-    }, [dispatch]);
+    }, [dispatch, searchText]);
 
     return (
         <Fragment>
