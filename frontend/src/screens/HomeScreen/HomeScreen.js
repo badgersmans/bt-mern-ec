@@ -1,4 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Meta from '../../components/Meta/Meta';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../redux/Product/ProductActions';
 import { Col, Row } from 'react-bootstrap';
@@ -23,7 +25,9 @@ const HomeScreen = ({ match }) => {
 
     return (
         <Fragment>
-            {!searchText && <ProductCarousel />}
+            <Meta />
+                
+            {!searchText ? <ProductCarousel /> : <Link to='/' className='btn btn-dark'>Go Back</Link>}
             <h1>Latest products</h1>
 
             {

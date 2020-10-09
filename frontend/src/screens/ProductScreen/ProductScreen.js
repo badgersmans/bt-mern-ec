@@ -7,6 +7,7 @@ import ShowMoreText from 'react-show-more-text';
 import Rating from '../../components/Rating/Rating';
 import Loader from '../../components/Loader/Loader';
 import Message from '../../components/Message/Message';
+import Meta from '../../components/Meta/Meta';
 import { GlassMagnifier } from "react-image-magnifiers";
 import DayJS from 'react-dayjs';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../../redux/Product/ProductConstants';
@@ -75,6 +76,7 @@ const ProductScreen = ({ match, history }) => {
                 : error ? <Message variant='danger'>{ error }</Message>
                 : (
                     <Fragment>
+                        <Meta title={ product.name }/>
                     <Row>
                         <Col md={ 6 }>
                             <GlassMagnifier
