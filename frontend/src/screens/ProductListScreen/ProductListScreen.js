@@ -4,14 +4,17 @@ import { Table, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
+import Paginate from '../../components/Paginate/Paginate';
 import { listProducts, deleteProduct, createProduct } from '../../redux/Product/ProductActions';
 import { PRODUCT_CREATE_RESET } from '../../redux/Product/ProductConstants';
 
 
 const ProductListScreen = ({ history, match }) => {
+
+    const pageNumber = match.params.pageNumber || 1;
     
     const dispatch  = useDispatch();
-    const { loading, error, products } = useSelector(state => state.productList);
+    const { loading, error, products, page, pages } = useSelector(state => state.productList);
     const { loading:loadingDelete, error:deleteError, success:deleteSuccess } = useSelector(state => state.deleteProduct);
     const { loading:createLoading, error:createError, success:createSuccess, product:createdProduct } = useSelector(state => state.createProduct);
     const { userInfo } = useSelector(state => state.userLogin);
@@ -28,9 +31,9 @@ const ProductListScreen = ({ history, match }) => {
         if(createSuccess) {
             history.push(`/admin/product/${ createdProduct._id }/edit`);
         } else {
-            dispatch(listProducts());
+            dispatch(listProducts('', pageNumber));
         }
-    }, [dispatch, history, userInfo, deleteSuccess, createSuccess, createdProduct]);
+    }, [dispatch, history, userInfo, deleteSuccess, createSuccess, createdProduct, pageNumber]);
 
     const deleteHandler = (productID) => {
         if (window.confirm('Are you sure?')) {
@@ -68,6 +71,7 @@ const ProductListScreen = ({ history, match }) => {
                 loading ? <Loader />
                 : error ? <Message variant='danger'>{ error }</Message>
                 : (
+                    <Fragment>
                     <Table
                         striped
                         bordered
@@ -125,6 +129,8 @@ const ProductListScreen = ({ history, match }) => {
                             }
                         </tbody>
                     </Table>
+                    <Paginate pages={ pages } page={ page } isAdmin={ true }/>
+                    </Fragment>
                 )
             }
         </Fragment>
