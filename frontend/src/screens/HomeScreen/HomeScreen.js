@@ -6,6 +6,7 @@ import Loader from '../../components/Loader/Loader';
 import Paginate from '../../components/Paginate/Paginate';
 import Message from '../../components/Message/Message';
 import Product from '../../components/Product/Product';
+import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 
 const HomeScreen = ({ match }) => {
 
@@ -22,6 +23,7 @@ const HomeScreen = ({ match }) => {
 
     return (
         <Fragment>
+            {!searchText && <ProductCarousel />}
             <h1>Latest products</h1>
 
             {

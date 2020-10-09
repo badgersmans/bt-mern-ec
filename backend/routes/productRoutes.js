@@ -1,6 +1,7 @@
 import express from 'express';
 import { 
     getProducts               ,
+    getTopProducts            ,
     getProductByID            ,
     deleteProductByID         ,
     createProduct             ,
@@ -15,6 +16,7 @@ const router = express.Router();
 
 
 router.route('/').get(getProducts).post(protect, isAdmin, createProduct);
+router.get('/top', getTopProducts);
 
 router.route('/:id')
 .get(getProductByID)

@@ -2,10 +2,11 @@ import { combineReducers } from 'redux';
 
 import {
     productListReducer   ,
+    topProductsReducer   ,
     productDetailsReducer,
     productDeleteReducer ,
     productCreateReducer ,
-    productUpdateReducer,
+    productUpdateReducer ,
     productCreateReviewReducer
 } from './Product/ProductReducers';
 
@@ -33,6 +34,7 @@ import {
 
 export default combineReducers({
     productList         : productListReducer         ,
+    topProducts         : topProductsReducer         ,
     productDetails      : productDetailsReducer      ,
     productCreateReview : productCreateReviewReducer ,
     createProduct       : productCreateReducer       ,
