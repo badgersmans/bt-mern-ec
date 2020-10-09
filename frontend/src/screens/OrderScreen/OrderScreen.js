@@ -8,6 +8,7 @@ import DayJS from 'react-dayjs';
 import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
 import { getOrderDetails, payOrder, deliverOrder } from '../../redux/Orders/OrderActions';
+import { updateProductStockQuantity } from '../../redux/Product/ProductActions';
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../../redux/Orders/OrderConstants';
 
 const OrderScreen = ({ match, history }) => {
@@ -74,7 +75,10 @@ const OrderScreen = ({ match, history }) => {
     const successPaymentHandler = (paymentResult) => {
         // console.log(paymentResult);
 
-        dispatch(payOrder(orderID, paymentResult))
+        dispatch(payOrder(orderID, paymentResult));
+        /* dispatch(updateProductStockQuantity(orderID, {
+            stockQuantity: 
+        })); */
     };
 
     const deliverHandler = () => {

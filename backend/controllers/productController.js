@@ -7,7 +7,14 @@ import Product from '../models/productModel.js';
 // @access Public
 const getProducts = asyncHandler(async(req, res) => {
 
-    const products = await Product.find({});
+    const searchText = req.query.searchText ? {
+        name: {
+            $regex: req.query.searchText,
+            $options: 'i'
+        }
+    } : {}
+
+    const products = await Product.find({ ...searchText });
 
     res.status(200).json(products);
 });
@@ -105,6 +112,29 @@ const updateProduct = asyncHandler(async(req, res) => {
 });
 
 
+// @desc   Update product
+// @route  PUT /api/products/:productID/stockquantity
+// @access Private
+const updateProductStockQuantity = asyncHandler(async(req, res) => {
+    
+    const {
+        stockQuantity
+    } = req.body;
+    
+    const product = await Product.findById(req.params.id);
+    
+    if (product) {
+        product.stockQuantity = stockQuantity;
+
+        const updatedProduct = await product.save();
+        res.status(200).json(updatedProduct);
+    } else {
+        res.status(404)
+        throw new Error('Product not found')
+    }
+});
+
+
 // @desc   Create new review
 // @route  POST /api/products/:productID/reviews
 // @access Private
@@ -154,6 +184,7 @@ export {
     deleteProductByID,
     createProduct,
     updateProduct,
+    updateProductStockQuantity,
     createProductReview
 }
 

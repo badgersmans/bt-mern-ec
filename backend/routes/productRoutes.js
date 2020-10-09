@@ -1,5 +1,13 @@
 import express from 'express';
-import { getProducts, getProductByID, deleteProductByID, createProduct, updateProduct, createProductReview } from '../controllers/productController.js';
+import { 
+    getProducts               ,
+    getProductByID            ,
+    deleteProductByID         ,
+    createProduct             ,
+    updateProduct             ,
+    updateProductStockQuantity,
+    createProductReview 
+} from '../controllers/productController.js';
 import { protect, isAdmin } from '../middleware/auth.js';
 
 
@@ -12,6 +20,8 @@ router.route('/:id')
 .get(getProductByID)
 .delete(protect, isAdmin, deleteProductByID)
 .put(protect, isAdmin, updateProduct);
+
+router.route('/:id/stockquantity').put(protect, updateProductStockQuantity);
 
 router.route('/:id/reviews').post(protect, createProductReview);
 
