@@ -24,6 +24,14 @@ h3 {
   margin: 5px;
 }
 
+#no-stock {
+  color: #e74c3c;
+}
+
+#in-stock {
+  color: #00bc8c;
+}
+
 /* carousel */
 .carousel-item-next,
 .carousel-item-prev,
