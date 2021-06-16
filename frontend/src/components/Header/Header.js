@@ -7,87 +7,80 @@ import SearchBox from '../SearchBox/SearchBox';
 import { logout } from '../../redux/User/UserActions';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
 
-    const dispatch = useDispatch();
-    const { userInfo } = useSelector(state => state.userLogin);
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
-    const logoutHandler = () => {
-        dispatch(logout());
-    };
+  return (
+    <header>
+      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+        <Container>
+          <LinkContainer to='/'>
+            <Navbar.Brand>
+              <img
+                alt=''
+                src='/favicon.ico'
+                width='30'
+                height='30'
+                className='d-inline-block align-bottom'
+              />{' '}
+              Geminids
+            </Navbar.Brand>
+          </LinkContainer>
 
-    return (
-        <header>
-            <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-                <Container>
+          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Collapse id='basic-navbar-nav'>
+            <Route render={({ history }) => <SearchBox history={history} />} />
 
-                    <LinkContainer to='/'>
-                        <Navbar.Brand>
-                            <img
-                                alt=""
-                                src="/favicon.ico"
-                                width="30"
-                                height="30"
-                                className="d-inline-block align-bottom"
-                            />{' '}Geminids
-                        </Navbar.Brand>
-                    </LinkContainer>
+            <Nav className='ml-auto'>
+              <LinkContainer to='/cart'>
+                <Nav.Link active={false}>
+                  <i className='fas fa-shopping-cart'></i> Cart
+                </Nav.Link>
+              </LinkContainer>
 
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Route render={({ history }) => <SearchBox history={ history }/> }/>
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
 
-                        <Nav className="ml-auto">
-                            <LinkContainer to='/cart'>
-                                <Nav.Link>
-                                    <i className="fas fa-shopping-cart"></i> Cart
-                                </Nav.Link>
-                            </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
 
-                            {
-                                userInfo && userInfo.isAdmin && (
-                                    <NavDropdown title='Admin' id='adminmenu'>
-                                        <LinkContainer to='/admin/userlist'>
-                                            <NavDropdown.Item>Users</NavDropdown.Item>
-                                        </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
 
-                                        <LinkContainer to='/admin/productlist'>
-                                            <NavDropdown.Item>Products</NavDropdown.Item>
-                                        </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
 
-                                        <LinkContainer to='/admin/orderlist'>
-                                            <NavDropdown.Item>Orders</NavDropdown.Item>
-                                        </LinkContainer>
-                                    </NavDropdown>
-                                )
-                            }
-
-                            {
-                                userInfo
-                                ? (
-                                    <NavDropdown title={ userInfo.name } id='username'>
-                                        <LinkContainer to='/profile'>
-                                            <NavDropdown.Item>Profile</NavDropdown.Item>
-                                        </LinkContainer>
-
-                                        <NavDropdown.Item onClick={ logoutHandler }>Logout</NavDropdown.Item>
-                                    </NavDropdown>
-                                ) : (
-                                    <LinkContainer to='/login'>
-                                        <Nav.Link>
-                                            <i className="fas fa-user"></i> Login
-                                        </Nav.Link>
-                                    </LinkContainer>
-                                )
-                            }
-
-                            
-                        </Nav>
-
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </header>
-    )
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link active={false}>
+                    <i className='fas fa-user'></i> Login
+                  </Nav.Link>
+                </LinkContainer>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
+  );
 };
 
 export default Header;
