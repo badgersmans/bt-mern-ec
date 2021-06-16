@@ -1,21 +1,21 @@
 import mongoose from 'mongoose';
+import colors from 'colors';
 
-const connectDB = async() => {
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URL, {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+    });
+    console.log('Database connected!'.green.inverse);
+  } catch (error) {
+    console.log(error.message.red.inverse);
 
-    try {
-        await mongoose.connect(process.env.dbURL, {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useFindAndModify: false,
-            useUnifiedTopology: true,
-        });
-        console.log('Database connected!'.green.bold.underline);
-    } catch (error) {
-        console.log(error.message.red.bold.underline);
-
-        // halt with failure
-        process.exit(1);
-    }
-}
+    // halt with failure
+    process.exit(1);
+  }
+};
 
 export default connectDB;
