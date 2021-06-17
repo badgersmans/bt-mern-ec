@@ -5,6 +5,7 @@ import {
   listProductDetails,
   createProductReview,
 } from '../../redux/Product/ProductActions';
+import { addToCart } from '../../redux/ShoppingCart/CartActions';
 import { Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import ShowMoreText from 'react-show-more-text';
 import Rating from '../../components/Rating/Rating';
@@ -56,8 +57,10 @@ const ProductScreen = ({ match, history }) => {
         } else {
             quantityFix = quantity;
         } */
+    dispatch(addToCart(product._id, quantity));
+    history.push('/cart');
 
-    history.push(`/cart/${match.params.id}?quantity=${quantity}`);
+    // history.push(`/cart/${match.params.id}?quantity=${quantity}`);
   };
 
   const submitHandler = (e) => {
