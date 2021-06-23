@@ -5,18 +5,21 @@ const Rating = ({ value, text, color }) => {
   return (
     <div className='rating'>
       {[1, 2, 3, 4, 5].map((index) => (
-        <i
-          style={{ color }}
-          className={
-            value >= index
-              ? 'fas fa-star'
-              : value >= index - 0.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
-          }
-          //   {`value is? ${value} index is? ${index} `}
-        ></i>
+        <span>
+          <i
+            style={{ color }}
+            className={
+              value >= index
+                ? 'fas fa-star'
+                : value >= index - 0.5
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
+            }
+            //   {`value is? ${value} index is? ${index} `}
+          ></i>
+        </span>
       ))}
+
       <span>{text && text}</span>
     </div>
   );

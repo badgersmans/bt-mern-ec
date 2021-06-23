@@ -5,6 +5,7 @@ import {
   listProductDetails,
   createProductReview,
 } from '../../redux/Product/ProductActions';
+import { addToCart } from '../../redux/ShoppingCart/CartActions';
 import { Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import ShowMoreText from 'react-show-more-text';
 import Rating from '../../components/Rating/Rating';
@@ -56,8 +57,14 @@ const ProductScreen = ({ match, history }) => {
         } else {
             quantityFix = quantity;
         } */
+    dispatch(addToCart(product._id, userInfo, quantity));
+    // history.push('/cart');
 
-    history.push(`/cart/${match.params.id}?quantity=${quantity}`);
+    // history.push(`/cart/${match.params.id}?quantity=${quantity}`);
+  };
+
+  const goToLoginHandler = () => {
+    history.push('/login');
   };
 
   const submitHandler = (e) => {
@@ -111,11 +118,11 @@ const ProductScreen = ({ match, history }) => {
 
                 <ListGroup.Item>
                   <ShowMoreText
-                    lines={5}
-                    more='Show more'
-                    less='Show less'
+                    lines={4}
+                    more='Read more'
+                    less='Less'
                     expanded={false}
-                    width={300}
+                    width={400}
                   >
                     Description: {product.description}
                   </ShowMoreText>
@@ -174,17 +181,28 @@ const ProductScreen = ({ match, history }) => {
                       </Row>
                     </ListGroup.Item>
                   )}
-
-                  <ListGroup.Item>
-                    <Button
-                      onClick={addToCartHandler}
-                      className='btn-block'
-                      type='button'
-                      disabled={product.stockQuantity === 0}
-                    >
-                      Add to cart
-                    </Button>
-                  </ListGroup.Item>
+                  {userInfo ? (
+                    <ListGroup.Item>
+                      <Button
+                        onClick={addToCartHandler}
+                        className='btn-block'
+                        type='button'
+                        disabled={product.stockQuantity === 0}
+                      >
+                        Add to cart
+                      </Button>
+                    </ListGroup.Item>
+                  ) : (
+                    <ListGroup.Item>
+                      <Button
+                        onClick={goToLoginHandler}
+                        className='btn-block'
+                        type='button'
+                      >
+                        Login to add to cart
+                      </Button>
+                    </ListGroup.Item>
+                  )}
                 </ListGroup>
               </Card>
             </Col>
