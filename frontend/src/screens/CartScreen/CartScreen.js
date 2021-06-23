@@ -16,13 +16,19 @@ import {
   removeFromCart,
 } from '../../redux/ShoppingCart/CartActions';
 
-const CartScreen = ({ match, location, history }) => {
+const CartScreen = ({ history }) => {
   // const productID = match.params.id;
   // const quantity = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userLogin);
+  let cartItems = [];
 
-  const { cartItems } = useSelector((state) => state.cart);
+  if (!userInfo) {
+    history.push('/login');
+  } else {
+    cartItems = userInfo.cartItems;
+  }
 
   /*     useEffect(() => {
         if (productID) {
@@ -67,7 +73,11 @@ const CartScreen = ({ match, location, history }) => {
                       value={item.quantity}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          addToCart(
+                            item.product,
+                            userInfo,
+                            Number(e.target.value)
+                          )
                         )
                       }
                     >

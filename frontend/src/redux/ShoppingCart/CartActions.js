@@ -1,61 +1,75 @@
 import axios from 'axios';
 
 import {
-    CART_ADD_ITEM,
-    CART_REMOVE_ITEM,
-    CART_SAVE_SHIPPING_ADDRESS,
-    CART_SAVE_PAYMENT_METHOD
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from './CartConstants';
 
+export const addToCart =
+  (productID, userInfo, quantity) => async (dispatch, getState) => {
+    const { data: productData } = await axios.get(`/api/products/${productID}`);
 
-export const addToCart = (productID, quantity) => async (dispatch, getState) => {
+    const payload = {
+      product: productData._id,
+      user: userInfo._id,
+      name: productData.name,
+      image: productData.image,
+      price: productData.price,
+      stockQuantity: productData.stockQuantity,
+      quantity,
+    };
 
-    const { data } = await axios.get(`/api/products/${ productID }`);
+    const cartItem = {
+      cartitems: payload,
+    };
 
     dispatch({
-        type: CART_ADD_ITEM,
-        payload: {
-            product: data._id,
-            name: data.name,
-            image: data.image,
-            price: data.price,
-            stockQuantity: data.stockQuantity,
-            quantity
-        }
+      type: CART_ADD_ITEM,
+      payload,
     });
 
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
-};
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
+    const { data: cartItems } = await axios.put(
+      `/api/users/${userInfo._id}/cartitems`,
+      cartItem,
+      config
+    );
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    console.log(`was called`);
+  };
 
 export const removeFromCart = (productID) => async (dispatch, getState) => {
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: productID,
+  });
 
-    dispatch({
-        type: CART_REMOVE_ITEM,
-        payload: productID
-    });
-
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
-
 
 export const saveShippingAdress = (formData) => async (dispatch) => {
+  dispatch({
+    type: CART_SAVE_SHIPPING_ADDRESS,
+    payload: formData,
+  });
 
-    dispatch({
-        type: CART_SAVE_SHIPPING_ADDRESS,
-        payload: formData
-    });
-
-    localStorage.setItem('shippingAddress', JSON.stringify(formData));
+  localStorage.setItem('shippingAddress', JSON.stringify(formData));
 };
 
-
 export const savePaymentMethod = (paymentMethod) => async (dispatch) => {
+  dispatch({
+    type: CART_SAVE_PAYMENT_METHOD,
+    payload: paymentMethod,
+  });
 
-    dispatch({
-        type: CART_SAVE_PAYMENT_METHOD,
-        payload: paymentMethod
-    });
-
-    localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod));
+  localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod));
 };
