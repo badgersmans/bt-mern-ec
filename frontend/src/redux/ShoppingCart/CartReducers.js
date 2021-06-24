@@ -19,8 +19,16 @@ export const cartReducer = (state = initialState, action) => {
     case CART_ADD_ITEM:
       // payload is what is coming in from the cartActions
       // it looks like
+      /* 
+        productID,
+        name: data.name,
+        image: data.image,
+        price: data.price,
+        stockQuantity: data.stockQuantity,
+        quantity, 
+      */
       const item = action.payload;
-      // console.log(`cartReducer item is? ${JSON.stringify(item)}`);
+      //   console.log(`cartReducer item is? ${JSON.stringify(item)}`);
 
       // check for duplicate cart items
       // find returns the first element it finds, returns undefined otherwise
@@ -29,24 +37,23 @@ export const cartReducer = (state = initialState, action) => {
       // item.product refers to the product ID passed in from the cartActions
       // then if theCartItem.product === item.product, find() returns the element it found.
       // then we know that what is being added to cart already exists. Because the product id matches.
-      const existingItem = state.cartItems.find(
-        (theCartItem) => theCartItem.product === item.product
-      );
-      console.log(`cartReducer existingItem is? ${JSON.stringify(existingItem)}`);
+      const existingItem = state.cartItems.find((theCartItem) => theCartItem.productID === item.productID);
+      //   console.log(`cartReducer existingItem is? ${JSON.stringify(existingItem)}`);
 
       // if item exists
       if (existingItem) {
         return {
           ...state,
-          a: state.cartItems.map((theCartItem) =>
-            theCartItem.product === existingItem.product ? item : theCartItem
+          cartItems: state.cartItems.map((theCartItem) => theCartItem.productID === existingItem.productID
+                ? item // merge the changed values/properties
+                : theCartItem // give back the original data unchanged
           ),
         };
       } else {
         // item doesn't exist, then just add it!
         return {
           ...state,
-          a: [...state.cartItems, item], // add to the variable name a, the new cart item. Remember a is the state variable!
+          cartItems: [...state.cartItems, item], // overwrite the cartItems state
         };
       }
 
