@@ -17,25 +17,36 @@ export const cartReducer = (state = initialState, action) => {
   console.log(state);
   switch (type) {
     case CART_ADD_ITEM:
-      const item = payload;
+      // payload is what is coming in from the cartActions
+      // it looks like
+      const item = action.payload;
       // console.log(`cartReducer item is? ${JSON.stringify(item)}`);
 
-      const itemExist = state.cartItems.cartItems.find(
-        (x) => x.product === item.product
+      // check for duplicate cart items
+      // find returns the first element it finds, returns undefined otherwise
+      // theCartItem refers to whatever is in the cartItems state
+      // then theCartItem.product refers to the product ID from state
+      // item.product refers to the product ID passed in from the cartActions
+      // then if theCartItem.product === item.product, find() returns the element it found.
+      // then we know that what is being added to cart already exists. Because the product id matches.
+      const existingItem = state.cartItems.find(
+        (theCartItem) => theCartItem.product === item.product
       );
-      // console.log(`cartReducer itemExist is? ${JSON.stringify(itemExist)}`);
+      console.log(`cartReducer existingItem is? ${JSON.stringify(existingItem)}`);
 
-      if (itemExist) {
+      // if item exists
+      if (existingItem) {
         return {
           ...state,
-          cartItems: state.cartItems.cartItems.map((x) =>
-            x.product === itemExist.product ? item : x
+          a: state.cartItems.map((theCartItem) =>
+            theCartItem.product === existingItem.product ? item : theCartItem
           ),
         };
       } else {
+        // item doesn't exist, then just add it!
         return {
           ...state,
-          cartItems: [...state.cartItems.cartItems, item],
+          a: [...state.cartItems, item], // add to the variable name a, the new cart item. Remember a is the state variable!
         };
       }
 
