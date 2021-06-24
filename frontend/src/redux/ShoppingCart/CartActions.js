@@ -11,18 +11,15 @@ export const addToCart =
   (productID, userInfo, quantity) => async (dispatch, getState) => {
     const { data: productData } = await axios.get(`/api/products/${productID}`);
 
+    // define the payload
     const payload = {
-      product: productData._id,
+      productID,
       user: userInfo._id,
       name: productData.name,
       image: productData.image,
       price: productData.price,
       stockQuantity: productData.stockQuantity,
       quantity,
-    };
-
-    const cartItem = {
-      cartitems: payload,
     };
 
     dispatch({
@@ -35,6 +32,10 @@ export const addToCart =
         'Content-Type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
+    };
+
+    const cartItem = {
+      cartitems: payload,
     };
 
     const { data: cartItems } = await axios.put(
