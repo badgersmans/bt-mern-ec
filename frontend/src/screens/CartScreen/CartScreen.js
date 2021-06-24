@@ -61,7 +61,7 @@ const CartScreen = ({ history }) => {
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
 
-                  <Col md={3}>
+                  <Col md={4}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
 
