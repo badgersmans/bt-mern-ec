@@ -60,7 +60,11 @@ export const cartReducer = (state = initialState, action) => {
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter((x) => x.product !== payload),
+        // filter() pass it a function that returns true to keep the elements
+        // in the array, false to remove it
+        cartItems: state.cartItems.filter(
+          (theCartItem) => theCartItem.productID !== payload
+        ),
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
