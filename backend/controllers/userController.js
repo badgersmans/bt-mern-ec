@@ -132,10 +132,10 @@ const updateUserByID = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc   Update user cart items
+// @desc   Add cart items to user
 // @route  PUT /api/users/:userID/cartitems
 // @access Private
-const updateUserCartItems = asyncHandler(async (req, res) => {
+const addCartItemsToUser = asyncHandler(async (req, res) => {
   // get the user id, then update cart items...
   const user = await User.findById(req.user._id);
 
@@ -204,5 +204,5 @@ export {
   deleteUserByID,
   getUserByID,
   updateUserByID,
-  updateUserCartItems,
+  addCartItemsToUser,
 };

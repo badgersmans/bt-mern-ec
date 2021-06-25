@@ -8,7 +8,7 @@ import {
   deleteUserByID,
   getUserByID,
   updateUserByID,
-  updateUserCartItems,
+  addCartItemsToUser,
 } from '../controllers/userController.js';
 import { protect, isAdmin } from '../middleware/auth.js';
 
@@ -28,6 +28,6 @@ router
   .put(protect, isAdmin, updateUserByID)
   .delete(protect, isAdmin, deleteUserByID);
 
-router.put('/:id/cartitems', protect, updateUserCartItems);
+router.put('/:id/cartitems', protect, addCartItemsToUser);
 
 export default router;
