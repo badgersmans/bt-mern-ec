@@ -35,7 +35,7 @@ export const addToCart =
     };
 
     const cartItem = {
-      cartitems: payload,
+      cartitems: payload, // cartitems refers to the req.body.cartitems
     };
 
     const { data: cartItems } = await axios.put(
