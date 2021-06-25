@@ -29,7 +29,6 @@ import {
 
 
 const userLoginState    = {};
-const userRegisterState = {};
 
 const userDetailsState  = {
     user: {}
@@ -74,7 +73,7 @@ export const userLoginReducer = (state = userLoginState, action) => {
 };
 
 
-export const userRegisterReducer = (state = userRegisterState, action) => {
+export const userRegisterReducer = (state = {}, action) => {
 
     const { type, payload } = action;
  
@@ -86,7 +85,6 @@ export const userRegisterReducer = (state = userRegisterState, action) => {
         case USER_REGISTER_SUCCESS:
             return {
                 loading: false,
-                userInfo: payload
             }
         case USER_REGISTER_FAIL:
             return {

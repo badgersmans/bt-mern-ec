@@ -90,7 +90,6 @@ export const register = (name, email, password) => async (dispatch) => {
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
-      payload: data,
     });
 
     dispatch({
