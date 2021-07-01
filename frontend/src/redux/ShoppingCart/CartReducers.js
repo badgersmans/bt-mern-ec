@@ -1,64 +1,86 @@
 import {
-    CART_ADD_ITEM,
-    CART_REMOVE_ITEM,
-    CART_SAVE_SHIPPING_ADDRESS,
-    CART_SAVE_PAYMENT_METHOD
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
 } from './CartConstants';
 
-
 const initialState = {
-    cartItems: [],
-    shippingAddress: {}
+  cartItems: [],
+  shippingAddress: {},
 };
-
 
 export const cartReducer = (state = initialState, action) => {
+  const { type, payload } = action;
 
-    const { type, payload } = action;
+  switch (type) {
+    case CART_ADD_ITEM:
+      // payload is what is coming in from the cartActions
+      // it looks like
+      /* 
+        productID,
+        name: data.name,
+        image: data.image,
+        price: data.price,
+        stockQuantity: data.stockQuantity,
+        quantity, 
+      */
+      const item = payload;
+      console.log(`cartReducer item is? ${JSON.stringify(item)}`);
 
-    switch (type) {
-        case CART_ADD_ITEM:
-            const item = payload;
-            console.log(`cartReducer item is? ${JSON.stringify(item)}`);
+      // check for duplicate cart items
+      // find returns the first element it finds, returns undefined otherwise
+      // theCartItem refers to whatever is in the cartItems state
+      // then theCartItem.product refers to the product ID from state
+      // item.product refers to the product ID passed in from the cartActions
+      // then if theCartItem.product === item.product, find() returns the element it found.
+      // then we know that what is being added to cart already exists. Because the product id matches.
+      const existingItem = state.cartItems.find(
+        (theCartItem) => theCartItem.productID === item.productID
+      );
+      console.log(
+        `cartReducer existingItem is? ${JSON.stringify(existingItem)}`
+      );
 
-            const itemExist = state.cartItems.find(x => x.product === item.product);
-            console.log(`cartReducer itemExist is? ${JSON.stringify(itemExist)}`);
+      // if item exists
+      if (existingItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map(
+            (theCartItem) =>
+              theCartItem.productID === existingItem.productID
+                ? item // merge the changed values/properties
+                : theCartItem // give back the original data unchanged
+          ),
+        };
+      } else {
+        // item doesn't exist, then just add it!
+        return {
+          ...state,
+          cartItems: [...state.cartItems, item], // overwrite the cartItems state
+        };
+      }
 
-
-            if(itemExist) {
-                return {
-                    ...state,
-                    cartItems: state.cartItems.map(
-                        x => x.product === itemExist.product ? item : x
-                    )
-                }
-            } else {
-                return {
-                    ...state,
-                    cartItems: [
-                        ...state.cartItems, item
-                    ]
-                }
-            }
-
-        case CART_REMOVE_ITEM:
-            return {
-                ...state,
-                cartItems: state.cartItems.filter(x => x.product !== payload)
-            }
-        case CART_SAVE_SHIPPING_ADDRESS:
-            return {
-                ...state,
-                shippingAddress: payload
-            }
-        case CART_SAVE_PAYMENT_METHOD:
-            return {
-                ...state,
-                paymentMethod: payload
-            }
-        default:
-            return state;
-    }
+    case CART_REMOVE_ITEM:
+      return {
+        // filter() pass it a function that returns true to keep the elements
+        // in the array, false to remove it
+        ...state,
+        cartItems: state.cartItems.filter(
+          (theCartItem) => theCartItem.productID !== payload
+        ),
+      };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: payload,
+      };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: payload,
+      };
+    default:
+      return state;
+  }
 };
-
-

@@ -15,6 +15,7 @@ import {
   addToCart,
   removeFromCart,
 } from '../../redux/ShoppingCart/CartActions';
+import formatMoney from '../../lib/moneyFormatter';
 
 const CartScreen = ({ match, location, history }) => {
   // const productID = match.params.id;
@@ -38,6 +39,11 @@ const CartScreen = ({ match, location, history }) => {
     history.push('/login?redirect=shipping');
   };
 
+  const countSubtotalItems = cartItems.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
+
   return (
     <Row>
       <Col md={8}>
@@ -49,17 +55,17 @@ const CartScreen = ({ match, location, history }) => {
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
-              <ListGroup.Item key={item.product}>
+              <ListGroup.Item key={item.productID}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
 
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/product/${item.productID}`}>{item.name}</Link>
                   </Col>
 
-                  <Col md={2}>RM {item.price}</Col>
+                  <Col md={2}>{formatMoney(item.price)}</Col>
 
                   <Col md={2}>
                     <Form.Control
@@ -67,7 +73,7 @@ const CartScreen = ({ match, location, history }) => {
                       value={item.quantity}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          addToCart(item.productID, Number(e.target.value))
                         )
                       }
                     >
@@ -83,7 +89,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCartHandler(item.product)}
+                      onClick={() => removeFromCartHandler(item.productID)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
@@ -99,16 +105,19 @@ const CartScreen = ({ match, location, history }) => {
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>
-                Subtotal (
-                {cartItems.reduce((acc, item) => acc + item.quantity, 0)}) items
-              </h2>
+              {countSubtotalItems > 1 ? (
+                <h2>Subtotal ({countSubtotalItems}) items</h2>
+              ) : (
+                <h2>Subtotal ({countSubtotalItems}) item</h2>
+              )}
 
               <h5>
-                RM{' '}
-                {cartItems
-                  .reduce((acc, item) => acc + item.quantity * item.price, 0)
-                  .toFixed(2)}
+                {formatMoney(
+                  cartItems.reduce(
+                    (acc, item) => acc + item.quantity * item.price,
+                    0
+                  )
+                )}
               </h5>
             </ListGroup.Item>
 

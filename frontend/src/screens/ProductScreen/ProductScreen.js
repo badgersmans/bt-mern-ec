@@ -58,7 +58,7 @@ const ProductScreen = ({ match, history }) => {
             quantityFix = quantity;
         } */
     dispatch(addToCart(product._id, quantity));
-    history.push('/cart');
+    // history.push('/cart');
 
     // history.push(`/cart/${match.params.id}?quantity=${quantity}`);
   };
