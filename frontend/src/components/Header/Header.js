@@ -5,17 +5,13 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import SearchBox from '../SearchBox/SearchBox';
 import { logout } from '../../redux/User/UserActions';
-import { useHistory } from 'react-router-dom';
 
 const Header = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
 
   const logoutHandler = () => {
     dispatch(logout());
-
-    history.push('/');
   };
 
   return (

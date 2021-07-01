@@ -57,14 +57,10 @@ const ProductScreen = ({ match, history }) => {
         } else {
             quantityFix = quantity;
         } */
-    dispatch(addToCart(product._id, userInfo, quantity));
-    // history.push('/cart');
+    dispatch(addToCart(product._id, quantity));
+    history.push('/cart');
 
     // history.push(`/cart/${match.params.id}?quantity=${quantity}`);
-  };
-
-  const goToLoginHandler = () => {
-    history.push('/login');
   };
 
   const submitHandler = (e) => {
@@ -118,11 +114,11 @@ const ProductScreen = ({ match, history }) => {
 
                 <ListGroup.Item>
                   <ShowMoreText
-                    lines={4}
-                    more='Read more'
-                    less='Less'
+                    lines={5}
+                    more='Show more'
+                    less='Show less'
                     expanded={false}
-                    width={400}
+                    width={300}
                   >
                     Description: {product.description}
                   </ShowMoreText>
@@ -181,28 +177,17 @@ const ProductScreen = ({ match, history }) => {
                       </Row>
                     </ListGroup.Item>
                   )}
-                  {userInfo ? (
-                    <ListGroup.Item>
-                      <Button
-                        onClick={addToCartHandler}
-                        className='btn-block'
-                        type='button'
-                        disabled={product.stockQuantity === 0}
-                      >
-                        Add to cart
-                      </Button>
-                    </ListGroup.Item>
-                  ) : (
-                    <ListGroup.Item>
-                      <Button
-                        onClick={goToLoginHandler}
-                        className='btn-block'
-                        type='button'
-                      >
-                        Login to add to cart
-                      </Button>
-                    </ListGroup.Item>
-                  )}
+
+                  <ListGroup.Item>
+                    <Button
+                      onClick={addToCartHandler}
+                      className='btn-block'
+                      type='button'
+                      disabled={product.stockQuantity === 0}
+                    >
+                      Add to cart
+                    </Button>
+                  </ListGroup.Item>
                 </ListGroup>
               </Card>
             </Col>

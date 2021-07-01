@@ -26,14 +26,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
-  GET_USER_CART_ITEMS_REQUEST,
-  GET_USER_CART_ITEMS_SUCCESS,
-  GET_USER_CART_ITEMS_FAIL,
-  GET_USER_CART_ITEMS_RESET,
 } from './UserConstants';
 
 import { ORDER_LIST_CURRENT_USER_RESET } from '../Orders/OrderConstants';
-import { CLEAR_CART_ITEMS } from '../ShoppingCart/CartConstants';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -211,39 +206,6 @@ export const listAllUsers = () => async (dispatch, getState) => {
   }
 };
 
-export const getUserCartItems = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: GET_USER_CART_ITEMS_REQUEST,
-    });
-
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`/api/users/`, config);
-
-    dispatch({
-      type: USER_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: USER_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const updateUser = (user) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -316,7 +278,6 @@ export const deleteUser = (userID) => async (dispatch, getState) => {
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
-  localStorage.removeItem('cartItems');
 
   dispatch({
     type: USER_LOGOUT,
@@ -329,8 +290,5 @@ export const logout = () => (dispatch) => {
   });
   dispatch({
     type: USER_LIST_RESET,
-  });
-  dispatch({
-    type: CLEAR_CART_ITEMS,
   });
 };

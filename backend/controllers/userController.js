@@ -2,43 +2,10 @@ import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 
-// @desc   Register user
-// @route  POST /api/users
-// @access Public
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-
-  const userExists = await User.findOne({ email });
-
-  if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
-
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error('Something went wrong 😥');
-  }
-});
-
 // @desc   Login (Auth user and get token)
 // @route  POST /api/users/login
 // @access Public
-const login = asyncHandler(async (req, res) => {
+const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).select('+password');
@@ -50,7 +17,6 @@ const login = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       token: generateToken(user._id),
-      cartItems: user.cartItems,
     });
   } else {
     res.status(401);
@@ -132,26 +98,36 @@ const updateUserByID = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc   Update user cart items
-// @route  PUT /api/users/:userID/cartitems
-// @access Private
-const updateUserCartItems = asyncHandler(async (req, res) => {
-  // get the user id, then update cart items...
-  const user = await User.findById(req.user._id);
+// @desc   Register user
+// @route  POST /api/users
+// @access Public
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    res.status(400);
+    throw new Error('User already exists');
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
 
   if (user) {
-    const cartItem = req.body.cartitems;
-
-    user.cartItems.push(cartItem);
-
-    const updatedUser = await user.save();
-
-    res.json({
-      cartItems: updatedUser.cartItems,
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
     });
   } else {
-    res.status(404);
-    throw new Error('User not found');
+    res.status(400);
+    throw new Error('Something went wrong 😥');
   }
 });
 
@@ -196,7 +172,7 @@ const getUserByID = asyncHandler(async (req, res) => {
 });
 
 export {
-  login,
+  authUser,
   getUserProfile,
   registerUser,
   updateUserProfile,
@@ -204,5 +180,4 @@ export {
   deleteUserByID,
   getUserByID,
   updateUserByID,
-  updateUserCartItems,
 };
