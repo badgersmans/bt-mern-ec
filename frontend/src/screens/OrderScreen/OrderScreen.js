@@ -16,6 +16,7 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../../redux/Orders/OrderConstants';
+import formatMoney from '../../lib/moneyFormatter';
 
 const OrderScreen = ({ match, history }) => {
   const orderID = match.params.id;
@@ -193,8 +194,8 @@ const OrderScreen = ({ match, history }) => {
                             </Col>
 
                             <Col md={4}>
-                              {item.quantity} x RM{item.price} = RM
-                              {item.quantity * item.price}
+                              {item.quantity} &times; {formatMoney(item.price)}{' '}
+                              = {formatMoney(item.quantity * item.price)}
                             </Col>
                           </Row>
                         </ListGroup.Item>
@@ -215,28 +216,28 @@ const OrderScreen = ({ match, history }) => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Items</Col>
-                      <Col>RM{order.itemsPrice}</Col>
+                      <Col>{formatMoney(order.itemsPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Shipping</Col>
-                      <Col>RM{order.shippingPrice}</Col>
+                      <Col>{formatMoney(order.shippingPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Tax</Col>
-                      <Col>RM{order.taxPrice}</Col>
+                      <Col>{formatMoney(order.taxPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Total</Col>
-                      <Col>RM{order.totalPrice}</Col>
+                      <Col>{formatMoney(order.totalPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
 

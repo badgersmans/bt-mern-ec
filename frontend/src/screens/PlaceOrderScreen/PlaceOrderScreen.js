@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../../components/Message/Message';
 import CheckoutSteps from '../../components/CheckoutSteps/CheckoutSteps';
 import { createOrder } from '../../redux/Orders/OrderActions';
+import formatMoney from '../../lib/moneyFormatter';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -103,8 +104,8 @@ const PlaceOrderScreen = ({ history }) => {
                         </Col>
 
                         <Col md={4}>
-                          {item.quantity} x RM{item.price} = RM
-                          {item.quantity * item.price}
+                          {item.quantity} x {formatMoney(item.price)} ={' '}
+                          {formatMoney(item.quantity * item.price)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -125,28 +126,28 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>RM{cart.itemsPrice}</Col>
+                  <Col>{formatMoney(cart.itemsPrice)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>RM{cart.shippingPrice}</Col>
+                  <Col>{formatMoney(cart.shippingPrice)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>RM{cart.taxPrice}</Col>
+                  <Col>{formatMoney(cart.taxPrice)}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>RM{cart.totalPrice}</Col>
+                  <Col>{formatMoney(cart.totalPrice)}</Col>
                 </Row>
               </ListGroup.Item>
 

@@ -5,6 +5,7 @@ import { Carousel, Image } from 'react-bootstrap';
 import Loader from '../Loader/Loader';
 import Message from '../Message/Message';
 import { listTopProducts } from '../../redux/Product/ProductActions';
+import formatMoney from '../../lib/moneyFormatter';
 
 const ProductCarousel = () => {
 
@@ -23,7 +24,7 @@ const ProductCarousel = () => {
                         <Link to={ `/product/${ product._id }` }>
                             <Image src={ product.image } alt={ product.name } fluid />
                             <Carousel.Caption className='carousel-caption'>
-                                <h2>{ product.name } ({ product.price })</h2>
+                                <h2>{ product.name } ({ formatMoney(product.price) })</h2>
                             </Carousel.Caption>
                         </Link>
                     </Carousel.Item>

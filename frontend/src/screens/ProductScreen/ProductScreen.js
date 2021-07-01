@@ -15,6 +15,7 @@ import Meta from '../../components/Meta/Meta';
 import { GlassMagnifier } from 'react-image-magnifiers';
 import DayJS from 'react-dayjs';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../../redux/Product/ProductConstants';
+import formatMoney from '../../lib/moneyFormatter';
 
 const ProductScreen = ({ match, history }) => {
   const [quantity, setQuantity] = useState(1);
@@ -110,7 +111,9 @@ const ProductScreen = ({ match, history }) => {
                   />
                 </ListGroup.Item>
 
-                <ListGroup.Item>Price: RM {product.price}</ListGroup.Item>
+                <ListGroup.Item>
+                  Price: {formatMoney(product.price)}
+                </ListGroup.Item>
 
                 <ListGroup.Item>
                   <ShowMoreText
@@ -134,7 +137,7 @@ const ProductScreen = ({ match, history }) => {
                       <Col>Price:</Col>
 
                       <Col>
-                        <strong>RM {product.price}</strong>
+                        <strong>{formatMoney(product.price)}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
