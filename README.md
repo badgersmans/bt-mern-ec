@@ -1,3 +1,9 @@
 bt-mern-ec
 
-rename the sample.env to .env and fill in the variables
+place the .env file in the root directory, these are the env variables
+
+NODE_ENV
+
+DB_URL
+
+JWT_SECRET
