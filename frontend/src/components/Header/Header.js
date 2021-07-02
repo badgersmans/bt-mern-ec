@@ -9,6 +9,8 @@ import { logout } from '../../redux/User/UserActions';
 const Header = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { cartItems } = useSelector((state) => state.cart);
+  const cartLength = cartItems.length;
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -38,7 +40,20 @@ const Header = () => {
             <Nav className='ml-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link active={false}>
-                  <i className='fas fa-shopping-cart'></i> Cart
+                  {cartLength > 0 ? (
+                    <span className='fa-layers fa-fw mx-2'>
+                      <i className='fas fa-shopping-cart'></i>
+                      <span
+                        className='fa-layers-counter fa-layers-top-left fa-inverse'
+                        style={{ background: 'tomato', fontSize: '1rem' }}
+                      >
+                        {cartLength}
+                      </span>
+                    </span>
+                  ) : (
+                    <i className='fas fa-shopping-cart'>&nbsp;</i>
+                  )}
+                  Cart
                 </Nav.Link>
               </LinkContainer>
 
