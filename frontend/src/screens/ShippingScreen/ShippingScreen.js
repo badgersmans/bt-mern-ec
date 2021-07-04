@@ -6,16 +6,16 @@ import CheckoutSteps from '../../components/CheckoutSteps/CheckoutSteps';
 import { saveShippingAdress } from '../../redux/ShoppingCart/CartActions';
 
 const ShippingScreen = ({ history }) => {
-  // const { userInfo } = useSelector(state => state.userLogin);
+  const { userInfo } = useSelector(state => state.userLogin);
   const { shippingAddress } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
-  /* useEffect(() => {
-        if (!userInfo) {
-            history.push('/login');
-        }
-    }, [history, userInfo]); */
+  useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
+  }, [history, userInfo]);
 
   const [address, setAddress]   = useState(shippingAddress.address  || '');
   const [city, setCity]         = useState(shippingAddress.city     || '');
