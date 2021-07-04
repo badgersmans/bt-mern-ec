@@ -17,10 +17,10 @@ const ShippingScreen = ({ history }) => {
         }
     }, [history, userInfo]); */
 
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [postCode, setPostCode] = useState(shippingAddress.postCode);
-  const [country, setCountry] = useState(shippingAddress.country);
+  const [address, setAddress]   = useState(shippingAddress.address  || '');
+  const [city, setCity]         = useState(shippingAddress.city     || '');
+  const [postCode, setPostCode] = useState(shippingAddress.postCode || '');
+  const [country, setCountry]   = useState(shippingAddress.country  || '');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -58,10 +58,10 @@ const ShippingScreen = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId='postCode'>
-          <Form.Label>Post code</Form.Label>
+          <Form.Label>Postcode</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Post code'
+            placeholder='Postcode'
             value={postCode}
             required
             onChange={(e) => setPostCode(e.target.value)}
@@ -80,7 +80,7 @@ const ShippingScreen = ({ history }) => {
         </Form.Group>
 
         <Button type='submit' variant='primary'>
-          Proceed to select payment method
+          Continue
         </Button>
       </Form>
     </FormContainer>
