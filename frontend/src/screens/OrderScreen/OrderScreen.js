@@ -64,11 +64,11 @@ const OrderScreen = ({ match, history }) => {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderID));
-    } else if (!order.isPaid) {
-      if (!window.script) {
+    } else if (!order.isPaid) { // if not paid
+      if (!window.script) { // if there is no paypal script
         addPayPalScript();
       }
-    } else {
+    } else { // otherwise sdk is ready
       setSdkReady(true);
     }
   }, [dispatch, orderID, successPay, successDeliver, order, history, userInfo]);
