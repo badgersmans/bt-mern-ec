@@ -47,7 +47,7 @@ const OrderScreen = ({ match, history }) => {
 
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=MYR`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -238,6 +238,7 @@ const OrderScreen = ({ match, history }) => {
                         <PayPalButton
                           amount={order.totalPrice}
                           onSuccess={successPaymentHandler}
+                          currency='MYR'
                         ></PayPalButton>
                       )}
                     </ListGroup.Item>
