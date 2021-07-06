@@ -17,21 +17,11 @@ const PlaceOrderScreen = ({ history }) => {
     cartItems,
   } = cart;
 
-  const addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
-  };
-
   // Calculate prices
-  cart.itemsPrice = addDecimals(
-    cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
-  );
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 10);
-  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.taxPrice)
-  ).toFixed(2);
+  cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 10;
+  cart.taxPrice = (0.05 * cart.itemsPrice);
+  cart.totalPrice = (cart.itemsPrice + cart.shippingPrice + cart.taxPrice);
 
   const { order, success, error } = useSelector((state) => state.createOrder);
 
@@ -104,7 +94,7 @@ const PlaceOrderScreen = ({ history }) => {
                         </Col>
 
                         <Col md={4}>
-                          {item.quantity} x {formatMoney(item.price)} ={' '}
+                          {item.quantity} &times; {formatMoney(item.price)} ={' '}
                           {formatMoney(item.quantity * item.price)}
                         </Col>
                       </Row>
