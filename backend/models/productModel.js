@@ -69,14 +69,12 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
-        min: 0,
         trim: true
     },
     stockQuantity: {
         type: Number,
         required: true,
         default: 0,
-        min: 0,
         trim: true
     }
 }, { timestamps: true });
