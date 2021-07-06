@@ -36,19 +36,6 @@ const OrderScreen = ({ match, history }) => {
 
   const { userInfo } = useSelector((state) => state.userLogin);
 
-  if (!loading) {
-    const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
-
-    // Calculate prices
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce(
-        (acc, item) => acc + item.price * item.quantity,
-        0
-      )
-    );
-  }
 
   useEffect(() => {
     if (!userInfo) {
