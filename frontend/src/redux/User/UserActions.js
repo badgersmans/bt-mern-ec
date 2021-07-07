@@ -293,5 +293,5 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: USER_LIST_RESET,
   });
-  document.location.href = '/login'
+  document.location.href = '/'
 };
