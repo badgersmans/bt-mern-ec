@@ -57,24 +57,24 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
 
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
-                  <LinkContainer to='/admin/userlist'>
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-
-                  <LinkContainer to='/admin/productlist'>
-                    <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-
-                  <LinkContainer to='/admin/orderlist'>
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
+                  {userInfo.isAdmin && (
+                    <>
+                      <LinkContainer to='/admin/userlist'>
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+
+                      <LinkContainer to='/admin/productlist'>
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+
+                      <LinkContainer to='/admin/orderlist'>
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                    </>
+                  )}
+
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
@@ -85,7 +85,7 @@ const Header = () => {
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
-                  <Nav.Link active={false}>
+                  <Nav.Link>
                     <i className='fas fa-user'></i> Login
                   </Nav.Link>
                 </LinkContainer>
