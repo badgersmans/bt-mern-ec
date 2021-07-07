@@ -88,6 +88,7 @@ const UserListScreen = ({ history }) => {
                                                 variant='danger' 
                                                 className='btn-sm'
                                                 onClick={() => deleteHandler(user._id) }
+                                                disabled={userInfo._id === user._id}
                                             >
                                                 <i className="fas fa-trash"></i>
                                             </Button>
