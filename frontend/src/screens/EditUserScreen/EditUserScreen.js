@@ -98,6 +98,7 @@ const EditUserScreen = ({ match, history }) => {
                                 label='Is Admin'
                                 checked={ isAdmin }
                                 onChange={e => setIsAdmin(e.target.checked) }
+                                disabled={user._id === userID}
                             ></Form.Check>
                         </Form.Group>
 
