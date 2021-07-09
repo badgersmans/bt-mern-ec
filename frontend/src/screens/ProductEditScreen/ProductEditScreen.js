@@ -7,7 +7,7 @@ import Message from '../../components/Message/Message';
 import Loader from '../../components/Loader/Loader';
 import FormContainer from '../../components/FormContainer/FormContainer';
 import { listProductDetails, updateProduct } from '../../redux/Product/ProductActions';
-import { PRODUCT_UPDATE_RESET } from '../../redux/Product/ProductConstants';
+import { PRODUCT_UPDATE_RESET, PRODUCT_DETAILS_RESET } from '../../redux/Product/ProductConstants';
 
 
 const ProductEditScreen = ({ match, history }) => {
@@ -32,6 +32,9 @@ const ProductEditScreen = ({ match, history }) => {
         if (success) {
             dispatch({
                 type: PRODUCT_UPDATE_RESET
+            })
+            dispatch({
+                type: PRODUCT_DETAILS_RESET
             })
             history.push('/admin/productlist');
         } else {
