@@ -26,6 +26,8 @@ const CartScreen = ({ match, location, history }) => {
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
+  console.log(cartItems);
+
   /*     useEffect(() => {
         if (productID) {
             dispatch(addToCart(productID, quantity));
@@ -62,14 +64,14 @@ const CartScreen = ({ match, location, history }) => {
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
-              <ListGroup.Item key={item.productID}>
+              <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
 
                   <Col md={3}>
-                    <Link to={`/product/${item.productID}`}>{item.name}</Link>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
 
                   <Col md={2}>{formatMoney(item.price)}</Col>
@@ -80,7 +82,7 @@ const CartScreen = ({ match, location, history }) => {
                       value={item.quantity}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.productID, Number(e.target.value))
+                          addToCart(item.product, Number(e.target.value))
                         )
                       }
                     >
@@ -96,7 +98,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCartHandler(item.productID)}
+                      onClick={() => removeFromCartHandler(item.product)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
