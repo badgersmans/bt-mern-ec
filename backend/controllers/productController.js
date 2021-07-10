@@ -11,10 +11,26 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const searchText = req.query.searchText
     ? {
-        name: {
-          $regex: req.query.searchText,
-          $options: 'i',
-        },
+        $or: [
+          {
+            name: {
+              $regex: req.query.searchText,
+              $options: 'i',
+            },
+          },
+          {
+            brand: {
+              $regex: req.query.searchText,
+              $options: 'i',
+            },
+          },
+          {
+            description: {
+              $regex: req.query.searchText,
+              $options: 'i',
+            },
+          },
+        ],
       }
     : {};
 
