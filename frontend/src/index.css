@@ -38,10 +38,11 @@ h3 {
 .carousel-item.active {
   display: flex;
 }
-
 .carousel-caption {
   position: absolute;
   top: 0;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .carousel-caption h2 {
@@ -50,13 +51,12 @@ h3 {
 
 .carousel img {
   height: 300px;
-  padding: 30px;
+  padding: 40px;
   margin: 40px;
-  border-radius: 25%;
+  border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
 }
-
 .carousel a {
   margin: 0 auto;
 }
