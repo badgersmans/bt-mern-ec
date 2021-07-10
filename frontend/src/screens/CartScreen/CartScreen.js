@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -23,6 +23,7 @@ const CartScreen = ({ match, location, history }) => {
 
   const dispatch = useDispatch();
 
+  const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems } = useSelector((state) => state.cart);
 
   /*     useEffect(() => {
@@ -43,6 +44,12 @@ const CartScreen = ({ match, location, history }) => {
     (acc, item) => acc + item.quantity,
     0
   );
+
+  useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
+  }, [dispatch, userInfo]);
 
   return (
     <Row>

@@ -19,7 +19,7 @@ export const cartReducer = (state = initialState, action) => {
       // payload is what is coming in from the cartActions
       // it looks like
       /* 
-        productID,
+        product,
         name: data.name,
         image: data.image,
         price: data.price,
@@ -37,7 +37,7 @@ export const cartReducer = (state = initialState, action) => {
       // then if theCartItem.product === item.product, find() returns the element it found.
       // then we know that what is being added to cart already exists. Because the product id matches.
       const existingItem = state.cartItems.find(
-        (theCartItem) => theCartItem.productID === item.productID
+        (theCartItem) => theCartItem.product === item.product
       );
       console.log(
         `cartReducer existingItem is? ${JSON.stringify(existingItem)}`
@@ -49,7 +49,7 @@ export const cartReducer = (state = initialState, action) => {
           ...state,
           cartItems: state.cartItems.map(
             (theCartItem) =>
-              theCartItem.productID === existingItem.productID
+              theCartItem.product === existingItem.product
                 ? item // merge the changed values/properties
                 : theCartItem // give back the original data unchanged
           ),
@@ -68,7 +68,7 @@ export const cartReducer = (state = initialState, action) => {
         // in the array, false to remove it
         ...state,
         cartItems: state.cartItems.filter(
-          (theCartItem) => theCartItem.productID !== payload
+          (theCartItem) => theCartItem.product !== payload
         ),
       };
     case CART_SAVE_SHIPPING_ADDRESS:
